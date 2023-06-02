@@ -11,31 +11,32 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
+import MashButton from './components/CustomButton';
+import Header from './components/Header';
 
-const App = () => {
+export default function App() {
+  const [name, SetName] = useState<string>('');
+  const [submitted, SetSubmitted] = useState<boolean>(false);
+  const [showWarning, SetshowWarning] = useState<boolean>(false);
 
-  const [name, SetName] = useState('');
-  const [submitted, SetSubmitted] = useState(false);
-  const [showWarning, SetshowWarning] = useState(false);
   const onPressHandler = () => {
     if (name.length > 3) {
       SetSubmitted(!submitted);
     } else {
       SetshowWarning(true);
     }
-  }
+  };
 
   return (
     <ImageBackground
       style={styles.body}
       source={{ uri: 'https://cdn.pixabay.com/photo/2013/07/12/12/35/texture-145968_960_720.png' }}
     >
+      <Header />
       <Modal
         visible={showWarning}
         transparent
-        onRequestClose={() =>
-          SetshowWarning(false)
-        }
+        onRequestClose={() => SetshowWarning(false)}
         animationType='slide'
         hardwareAccelerated
       >
@@ -45,7 +46,7 @@ const App = () => {
               <Text style={styles.text}>WARNING!</Text>
             </View>
             <View style={styles.warning_body}>
-              <Text style={styles.text}>The name must be longer than 3 charachters</Text>
+              <Text style={styles.text}>The name must be longer than 3 characters</Text>
             </View>
             <Pressable
               onPress={() => SetshowWarning(false)}
@@ -57,47 +58,41 @@ const App = () => {
           </View>
         </View>
       </Modal>
-      <Text style={styles.text}>
-        Please write your name:
-      </Text>
+      <Text style={styles.text}>Write your name:</Text>
       <TextInput
         style={styles.input}
         placeholder='e.g. John'
         onChangeText={(value) => SetName(value)}
+        value={name}
       />
-      <Pressable
-        onPress={onPressHandler}
-        hitSlop={{ top: 10, bottom: 10, right: 10, left: 10 }}
-        android_ripple={{ color: '#00f' }}
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? '#dddddd' : '#00ff00' },
-          styles.button
-        ]}
-      >
-        <Text style={styles.text}>
-          {submitted ? 'Clear' : 'Submit'}
-        </Text>
-      </Pressable>
-      {
-        submitted ?
-          <View style={styles.body}>
-            <Text style={styles.text}>
-              You are registered as {name}
-            </Text>
-            <Image
-              style={styles.image}
-              source={require('./assets/done.png')}
-              resizeMode='stretch'
-            />
-          </View>
-          :
+      <MashButton
+        onPressFunction={onPressHandler}
+        title={submitted ? 'Clear' : 'Submit'}
+        color={'#00ff00'}
+      />
+      <MashButton
+        onPressFunction={() => {}}
+        title={'Test'}
+        color={'#ff00ff'}
+        style={{ margin: 10 }}
+      />
+      {submitted ? (
+        <View style={styles.body}>
+          <Text style={styles.text}>You are registered as {name}</Text>
           <Image
             style={styles.image}
-            source={{ uri: 'https://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png' }}
+            source={require('./assets/done.png')}
             resizeMode='stretch'
           />
-      }
-    </ImageBackground >
+        </View>
+      ) : (
+        <Image
+          style={styles.image}
+          source={{ uri: 'https://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png' }}
+          resizeMode='stretch'
+        />
+      )}
+    </ImageBackground>
   );
 };
 
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00000099'
+    backgroundColor: '#00000099',
   },
   warning_modal: {
     width: 300,
@@ -162,7 +157,5 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 10,
-  }
+  },
 });
-
-export default App;
