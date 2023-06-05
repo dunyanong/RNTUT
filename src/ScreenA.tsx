@@ -1,20 +1,26 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-type RootDrawerParamList = {
+type RootBottomTabParamList = {
   TabNavigator: undefined;
-  Screen_B: undefined;
+  Screen_B: { ItemName: string; ItemId: number };
 };
 
-type ScreenANavigationProp = DrawerNavigationProp<RootDrawerParamList, 'TabNavigator'>;
+type ScreenANavigationProp = BottomTabNavigationProp<
+  RootBottomTabParamList,
+  'TabNavigator'
+>;
 type ScreenAProps = {
   navigation: ScreenANavigationProp;
 };
 
-const ScreenA: React.FC<ScreenAProps> = ({ navigation }) => {
+const ScreenA: React.FC<ScreenAProps> = ({navigation}) => {
   const onPressHandler = () => {
-    navigation.navigate('Screen_B');
+    navigation.navigate('Screen_B', {
+      ItemName: 'Item from Screen A', 
+      ItemId: 1
+    });
   };
 
   return (

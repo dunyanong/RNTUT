@@ -1,17 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-type RootDrawerParamList = {
+type RootBottomTabParamList = {
   TabNavigator: undefined;
+  Screen_B: { ItemName: string; ItemId: number };
 };
 
-type ScreenBNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'TabNavigator'>;
+type ScreenBNavigationProp = BottomTabNavigationProp<RootBottomTabParamList, 'TabNavigator'>;
 type ScreenBProps = {
   navigation: ScreenBNavigationProp;
+  route: any
 };
 
-const ScreenB: React.FC<ScreenBProps> = ({ navigation }) => {
+const ScreenB: React.FC<ScreenBProps> = ({ navigation, route }) => {
+
+  const { ItemName, ItemId } = route.params;
+
   const onPressHandler = () => {
     navigation.goBack();
   };
@@ -24,6 +29,8 @@ const ScreenB: React.FC<ScreenBProps> = ({ navigation }) => {
         style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })} >
         <Text style={styles.text}>Go Back to Screen A</Text>
       </Pressable>
+      <Text style={styles.text}>{ItemName}</Text>
+      <Text style={styles.text}>{ItemId}</Text>
     </View>
   );
 };
