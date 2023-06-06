@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import GlobalStyle from '../utils/GlobalStyle';
 
 type RootBottomTabParamList = {
   TabNavigator: undefined;
@@ -25,7 +26,7 @@ const ScreenA: React.FC<ScreenAProps> = ({navigation}) => {
 
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>Screen A</Text>
+      <Text style={[styles.text, GlobalStyle.CustomFont]}>Screen A</Text>
       <Pressable onPress={onPressHandler} style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}>
         <Text style={styles.text}>Go to Screen B</Text>
       </Pressable>
@@ -45,6 +46,5 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     margin: 10,
-    fontFamily: 'DancingScript-SemiBold'
   }
 });
