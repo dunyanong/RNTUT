@@ -9,8 +9,8 @@ import {
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-import ScreenA from './ScreenA';
-import ScreenB from './ScreenB';
+import ScreenA from './screens/ScreenA';
+import ScreenB from './screens/ScreenB';
 
 const Tab = createBottomTabNavigator();
 
