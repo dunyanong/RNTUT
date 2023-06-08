@@ -7,20 +7,42 @@ import {
   Pressable,
 } from 'react-native';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
-import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import ScreenA from './screens/ScreenA';
-import ScreenB from './screens/ScreenB';
+import Home from './screens/Home';
+import Login from './screens/Login';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Screen_A" component={ScreenA} />
-        <Tab.Screen name="Screen_B" component={ScreenB} />
-      </Tab.Navigator>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#0080ff'
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            fontSize: 25,
+            fontWeight: 'bold'
+          }
+        }}
+      >
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
